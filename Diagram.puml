@@ -1,0 +1,52 @@
+@startuml
+
+abstract class StringObject {
+    +StringObject(value: string&): void
+    +getValue(): string
+    {abstract}+operator -(second: StringObject&): StringObject*
+    {abstract}+getType(): string
+    {abstract}+getDec(): int
+    -value: string
+    #stringSubtraction(reduced: string&, subtrahend: string&): string
+}
+
+class DecString {
+    +operator -(second: StringObject&): void
+    +getType(): string
+    +getDec(): int
+    -type: string
+}
+
+class SymbString {
+    +operator -(second: StringObject&): void
+    +getType(): string
+    +getDec(): int
+    -type: string
+}
+
+class StringFactory {
+    {static}+createObject(value: string&): StringObject*
+    {static}+deleteObject(object: StringObject*): void
+    {static}+detectType(value: string&): string
+}
+
+class StringOperations {
+    +showMenu(): void
+    -StringOperations(): void
+    -mainMenu(): void
+    -mainMenuAction(choice: int): void
+    -createObjectMenu(): void
+    -deleteObjectMenu(): void
+    -showObjectMenu(): void
+    -subObjectMenu(): void
+    -chooseObject(): int
+}
+
+StringObject <|-- DecString
+StringObject <|-- SymbString
+StringFactory o-- DecString
+StringFactory o-- SymbString
+StringOperations o-- StringFactory
+StringOperations o-- StringObject
+
+@enduml
